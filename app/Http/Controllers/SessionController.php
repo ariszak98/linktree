@@ -26,10 +26,21 @@ class SessionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    #[NoReturn]
     public function store(Request $request)
     {
-        dd($request->all());
+        $attributes = $request->validate([
+            'username' => ['required'],
+            'password' => ['required','min:8','max:255','string'],
+        ]);
+
+        if (auth()->attempt($attributes)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+
+        return back()->withErrors([
+            'username' => 'The provided credentials do not match our records.',
+        ])->onlyInput('username');
     }
 
     /**
@@ -59,8 +70,10 @@ class SessionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        auth()->logout();
+
+        return redirect()->route('login');
     }
 }

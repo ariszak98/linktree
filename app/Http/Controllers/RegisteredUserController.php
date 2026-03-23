@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use JetBrains\PhpStorm\NoReturn;
 
 class RegisteredUserController extends Controller
@@ -26,10 +29,24 @@ class RegisteredUserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    #[NoReturn]
     public function store(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'username' => ['required','max:255','unique:users,username'],
+            'email' => ['required','email','max:255','unique:users,email'],
+            'password' => ['required','min:8','max:255',],
+        ]);
+
+        $user = User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        Auth::login($user);
+
+        return redirect('/');
+
     }
 
     /**

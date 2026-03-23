@@ -23,17 +23,24 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center gap-6">
-                <a href="#" class="text-gray-600 hover:text-blue-600 transition">
-                    Features
-                </a>
-                <a href="#" class="text-gray-600 hover:text-blue-600 transition">
-                    Pricing
-                </a>
+
+
+{{--                <a href="#" class="text-gray-600 hover:text-blue-600 transition">--}}
+{{--                    Features--}}
+{{--                </a>--}}
+
 
                 @auth
-                    <a href="/dashboard" class="text-gray-600 hover:text-blue-600 transition">
-                        Dashboard
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition">
+                        <label class="font-medium">{{ auth()->user()->username }}, </label>
                     </a>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="text-gray-600 hover:text-blue-600">
+                            Logout
+                        </button>
+                    </form>
                 @else
                     <a href="/login" class="text-gray-600 hover:text-blue-600 transition">
                         Login
@@ -62,17 +69,19 @@
          @click.outside="open = false"
          class="md:hidden px-4 pb-4 space-y-3">
 
-        <a href="#" class="block text-gray-600 hover:text-blue-600">
-            Features
-        </a>
-        <a href="#" class="block text-gray-600 hover:text-blue-600">
-            Pricing
-        </a>
 
+
+        <br>
+{{--        <a href="#" class="block text-gray-600 hover:text-blue-600">--}}
+{{--            Features--}}
+{{--        </a>--}}
         @auth
-            <a href="/dashboard" class="block text-gray-600 hover:text-blue-600">
-                Dashboard
-            </a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="text-gray-600 hover:text-blue-600">
+                    Logout
+                </button>
+            </form>
         @else
             <a href="/login" class="block text-gray-600 hover:text-blue-600">
                 Login

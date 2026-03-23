@@ -7,8 +7,8 @@
                 @csrf
 
                 <div class="mb-4">
-                    <label for="email" class="block text-gray-700 mb-2">Username</label>
-                    <input type="email" id="email" name="email" required
+                    <label for="username" class="block text-gray-700 mb-2">Username</label>
+                    <input type="text" id="username" name="username" required
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-300">
                 </div>
 
