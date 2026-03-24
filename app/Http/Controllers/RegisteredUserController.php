@@ -43,6 +43,10 @@ class RegisteredUserController extends Controller
             'password' => $request->password,
         ]);
 
+        /**
+         * TODO: create a row for the Profile of this User in profiles table!
+         */
+
         Auth::login($user);
 
         return redirect('/');
