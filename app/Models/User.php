@@ -29,4 +29,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function links()
+    {
+        return $this->hasMany(Link::class);
+    }
+
+    public function activeLinksCount()
+    {
+        return $this->links()->where('is_active', 1)->count();
+    }
+
+    public function inactiveLinksCount()
+    {
+        return $this->links()->where('is_active', 0)->count();
+    }
+
+
 }

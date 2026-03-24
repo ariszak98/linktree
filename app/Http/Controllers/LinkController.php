@@ -15,9 +15,12 @@ class LinkController extends Controller
      */
     public function index()
     {
-        // get all links
-        $links = Link::latest()->get();
-        return view('links.index', ['links' => $links]);
+        // get all links of auth user
+
+        $links = auth()->user()->links()->latest()->get();
+        $activeLinksCount = auth()->user()->activeLinksCount();
+        $inactiveLinksCount = auth()->user()->inactiveLinksCount();
+        return view('links.index', ['links' => $links, 'activeLinksCount' => $activeLinksCount, 'inactiveLinksCount' => $inactiveLinksCount]);
     }
 
     /**
@@ -70,15 +73,39 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        //
+        return view('links.edit', ['link' => $link]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLinkRequest $request, Link $link)
+    public function update(HttpRequest $request, Link $link)
     {
-        //
+
+        $url = $request->url;
+
+        if ($url && !preg_match('~^https?://~i', $url)) {
+            $url = 'https://' . $url;
+        }
+
+        $request->merge([
+            'url' => $url,
+        ]);
+
+        $attributes = $request->validate([
+            'url' => ['required','url','max:255', 'url:http,https'],
+            'description' => ['max:255', 'nullable'],
+            'is_active' => ['nullable', 'integer', 'between:0,1'],
+        ]);
+
+        $link->update([
+            'url' => $attributes['url'],
+            'description' => $attributes['description'] ?? '',
+            'is_active' => $attributes['is_active'] ?? 0,
+        ]);
+
+
+        return redirect()->route('home');
     }
 
     /**
@@ -86,6 +113,7 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        //
+        $link->delete();
+        return redirect()->route('home');
     }
 }

@@ -26,8 +26,17 @@ Route::middleware('guest')->group(function () {
  */
 Route::middleware('auth')->group(function () {
     Route::get('/', [LinkController::class, 'index'])->name('home');
+
+    /**
+     * Links Related Routes
+     */
     Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
+    Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
+    Route::patch('/links/{link}', [LinkController::class, 'update'])->name('links.update');
+    Route::delete('/links/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
     Route::post('/links', [LinkController::class, 'store'])->name('links.store');
+
+
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 

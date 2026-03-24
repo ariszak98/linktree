@@ -13,5 +13,11 @@ class Link extends Model
     use HasFactory;
 
 
-    protected $fillable = ['url', 'description', 'user_id'];
+    protected $fillable = ['url', 'description', 'user_id', 'is_active'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

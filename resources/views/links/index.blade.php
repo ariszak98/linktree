@@ -11,15 +11,15 @@
 
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 text-sm sm:text-base">
                     <p class="text-gray-700">
-                        Active links:
+                        Active:
                         <span class="font-bold text-blue-600">
                             {{ $activeLinksCount ?? 0 }}
                         </span>
                     </p>
 
                     <p class="text-gray-700">
-                        Non-active links:
-                        <span class="font-bold text-blue-600">
+                        Inactive:
+                        <span class="font-bold text-red-600">
                             {{ $inactiveLinksCount ?? 0 }}
                         </span>
                     </p>
@@ -31,41 +31,56 @@
 
         <!-- LINKS SECTION -->
         <section class="space-y-4">
+
+            <a href="#"
+               class="block w-full text-center bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition font-bold">
+                View LinkTree
+            </a>
+
             @forelse($links as $link)
-            <div class="bg-white border border-blue-100 rounded-sm shadow-sm hover:shadow-md transition flex items-center justify-between px-5 py-3">
 
-                <!-- CENTER TEXT -->
-                <div class="flex-1 flex justify-center">
-                    <p class="text-center text-gray-800 font-medium text-base">
-                        {{ $link->description ?: $link->url }}
-                    </p>
-                </div>
+                <a href="{{ route('links.edit', $link) }}" class="block group">
+                    <div class="bg-white border border-blue-100 rounded-sm shadow-sm hover:shadow-md transition flex items-center justify-between px-5 py-3 relative">
 
-                <!-- ARROWS -->
-                <div class="flex flex-col items-center gap-1 ml-4">
+                        @if($link->is_active)
+                            <span class="absolute top-2 left-2 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Active</span>
+                        @else
+                            <span class="absolute top-2 left-2 text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-medium">Inactive</span>
+                        @endif
 
-                    <!-- UP -->
-                    <button
-                        class="p-1.5 rounded-md text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M5 15l7-7 7 7"/>
-                        </svg>
-                    </button>
+                        <!-- CENTER TEXT + ICON -->
+                        <div class="flex-1 flex justify-center items-center gap-2">
+                            <p class="text-center text-gray-800 font-medium text-base">
+                                {{ $link->description ?: $link->url }}
+                            </p>
+                        </div>
 
-                    <!-- DOWN -->
-                    <button
-                        class="p-1.5 rounded-md text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
-                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </button>
+                        <!-- ARROWS -->
+                        <div class="flex flex-col items-center gap-1 ml-4">
 
-                </div>
-            </div>
+                            <!-- UP -->
+                            <button type="button"
+                                    class="p-1.5 rounded-md text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M5 15l7-7 7 7"/>
+                                </svg>
+                            </button>
+
+                            <!-- DOWN -->
+                            <button type="button"
+                                    class="p-1.5 rounded-md text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+
+                        </div>
+                    </div>
+                </a>
 
             @empty
                 <div class="bg-white border border-dashed border-gray-300 rounded-2xl min-h-24 flex items-center justify-center px-6 py-6">
@@ -75,6 +90,5 @@
                 </div>
             @endforelse
         </section>
-
     </div>
 </x-layout>
