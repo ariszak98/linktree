@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['user_id', 'bio', 'avatar'])]
+#[Fillable(['user_id', 'description', 'avatar', 'background_color'])]
 
 class Profile extends Model
 {

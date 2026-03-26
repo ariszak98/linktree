@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Profile;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -13,7 +14,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile.index');
+        //
     }
 
     /**
@@ -45,15 +46,29 @@ class ProfileController extends Controller
      */
     public function edit(Profile $profile)
     {
-        //
+        return view('profile.edit');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProfileRequest $request, Profile $profile)
+    public function update(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'description' => ['max:255'],
+            'avatar' => ['image', 'max:2048'],
+            'background_color' => ['string', 'max:15'],
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $attributes['avatar'] = $avatarPath;
+        }
+
+        $profile = auth()->user()->profile;
+        $profile->update($attributes);
+
+        return redirect()->route('home');
     }
 
     /**

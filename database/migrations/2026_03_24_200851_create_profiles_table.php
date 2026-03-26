@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete();
-            $table->string('bio')->nullable();
+            $table->string('description')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('background_color')->default('white');
             $table->timestamps();
         });
     }
