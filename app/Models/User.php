@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['username', 'email', 'password'])]
+#[Fillable(['username', 'email', 'password', 'profile_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -30,17 +30,30 @@ class User extends Authenticatable
         ];
     }
 
+    /**
+     * Relationships Methods
+     */
     public function links()
     {
         return $this->hasMany(Link::class);
     }
 
-    public function activeLinksCount()
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+
+    /**
+     * Counts the number of active links for the user.
+      * @return int
+     */
+    public function activeLinksCount(): int
     {
         return $this->links()->where('is_active', 1)->count();
     }
 
-    public function inactiveLinksCount()
+    public function inactiveLinksCount(): int
     {
         return $this->links()->where('is_active', 0)->count();
     }
