@@ -26,6 +26,10 @@ Route::middleware('guest')->group(function () {
  * Authenticated Routes
  */
 Route::middleware('auth')->group(function () {
+
+    /**
+     * Home Authenticated
+     */
     Route::get('/', [LinkController::class, 'index'])->name('home');
 
     /**
@@ -43,7 +47,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-
+    /**
+     * Logout
+     */
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 

@@ -1,33 +1,33 @@
 <x-layout>
     <div class="flex-1 flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-            <h2 class="text-2xl font-bold mb-6 text-center">Login to Your Account</h2>
+
+
+            <x-text.h2>Login to your Account</x-text.h2>
 
             <form method="POST" action="/login">
                 @csrf
 
                 <div class="mb-4">
-                    <label for="username" class="block text-gray-700 mb-2">Username</label>
-                    <input type="text" id="username" name="username" required
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+                    <x-forms.label for="username">Username</x-forms.label>
+                    <x-forms.input id="username" name="username" required autofocus/>
                 </div>
 
                 <div class="mb-6">
-                    <label for="password" class="block text-gray-700 mb-2">Password</label>
-                    <input type="password" id="password" name="password" required
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+                    <x-forms.label for="password">Password</x-forms.label>
+                    <x-forms.input type="password" id="password" name="password" required/>
                 </div>
 
-                <button type="submit"
-                        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
-                    Login
-                </button>
+                <x-buttons.submit-wide>Login</x-buttons.submit-wide>
+
             </form>
 
             <p class="mt-4 text-center text-gray-600">
                 Don't have an account?
-                <a href="/register" class="text-blue-600 hover:underline">Sign up here</a>.
+                <x-text.link href="/register">Sign up here.</x-text.link>
             </p>
+
+
         </div>
     </div>
 </x-layout>

@@ -174,13 +174,17 @@
                 </section>
 
                 <!-- SUBMIT -->
-                <section class="pt-2">
+                <section class="pt-2 flex items-center justify-between">
                     <button
                         type="submit"
                         class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-white font-medium hover:bg-blue-700 transition"
                     >
                         Save Profile
                     </button>
+                    <p class="mt-4 text-center text-gray-600">
+                        Back to
+                        <a href="/" class="text-blue-600 hover:underline">Links</a>.
+                    </p>
                 </section>
             </form>
         </div>
