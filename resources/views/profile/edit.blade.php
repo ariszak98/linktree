@@ -1,28 +1,18 @@
 <x-layout>
     <div class="w-full max-w-4xl mx-auto">
 
-        <!-- PAGE HEADER -->
+
+        <!-- HEADER -->
         <div class="mb-8 flex justify-between items-center">
-
-            <!-- LEFT -->
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Profile Settings</h1>
-                <p class="mt-2 text-gray-500">
-                    Customize your public profile page.
-                </p>
+                <x-text.h1>Profile Settings</x-text.h1>
+                <x-text.p>Customize your public profile page.</x-text.p>
             </div>
-
-            <!-- RIGHT -->
-            <a href="#"
-               class="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 border border-blue-100 rounded-sm hover:bg-blue-50 transition">
-                View Public Profile
-            </a>
-
+            <x-buttons.link-white href="#">View Public Profile</x-buttons.link-white>
         </div>
 
         <!-- PROFILE CARD -->
         <div class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 sm:p-8">
-
             <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="space-y-8">
                 @csrf
                 @method('PATCH')
@@ -65,21 +55,9 @@
 
                 <!-- DESCRIPTION SECTION -->
                 <section>
-                    <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Page Description
-                    </label>
-
-                    <textarea
-                        id="description"
-                        name="description"
-                        rows="5"
-                        placeholder="Write a short description for your public page..."
-                        class="w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
-                    >{{ old('description', auth()->user()->profile?->description) }}</textarea>
-
-                    <p class="mt-2 text-sm text-gray-500">
-                        This will appear on your public profile.
-                    </p>
+                    <x-forms.label for="description">Page Description</x-forms.label>
+                    <x-forms.textarea id="description" name="description" rows="5">{{ old('description', auth()->user()->profile?->description) }}</x-forms.textarea>
+                    <x-forms.input-subtitle>This will appear on your public profile.</x-forms.input-subtitle>
 
                     @error('description')
                     <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
@@ -88,9 +66,7 @@
 
                 <!-- BACKGROUND PICKER -->
                 <section>
-                    <label class="block text-sm font-semibold text-gray-700 mb-3">
-                        Choose Background
-                    </label>
+                    <x-forms.label for="background_color">Choose Background</x-forms.label>
 
                     <div class="flex flex-wrap gap-4">
 
@@ -175,18 +151,16 @@
 
                 <!-- SUBMIT -->
                 <section class="pt-2 flex items-center justify-between">
-                    <button
-                        type="submit"
-                        class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-white font-medium hover:bg-blue-700 transition"
-                    >
-                        Save Profile
-                    </button>
+                    <x-buttons.submit>Save Profile</x-buttons.submit>
                     <p class="mt-4 text-center text-gray-600">
                         Back to
-                        <a href="/" class="text-blue-600 hover:underline">Links</a>.
+                        <x-text.link href="{{ route('home') }}">Links.</x-text.link>
                     </p>
                 </section>
+
             </form>
         </div>
+
+
     </div>
 </x-layout>
