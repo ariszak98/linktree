@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -36,9 +37,14 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Profile $profile)
+    public function show(User $user)
     {
-        //
+        $profile = $user->profile();
+        $links = $user->links()
+            ->where('is_active', 1)
+            ->latest()
+            ->get();
+        return view('profile.show', ['user' => $user, 'profile' => $profile, 'links' => $links]);
     }
 
     /**

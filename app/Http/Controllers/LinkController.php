@@ -51,10 +51,26 @@ class LinkController extends Controller
             'description' => ['max:255'],
         ]);
 
+        // check if url is social media and get the name of social media
+        $ar = ['facebook', 'instagram', 'youtube', 'twitter', 'snapchat', 'x.com', 'shopify', 'tiktok'];
+        $found = null;
+
+        foreach ($ar as $word) {
+            if (str_contains($url, $word)) {
+                $found = $word;
+                break;
+            }
+        }
+
+        if ($found == 'twitter' || $found == 'x.com') {
+            $found = 'x';
+        }
+
         Link::create([
             'url' => $attributes['url'],
             'description' => $attributes['description'] ?? '',
             'user_id' => auth()->id(),
+            'social' => $found,
         ]);
 
         return redirect()->route('home');

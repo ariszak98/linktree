@@ -22,6 +22,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'store']);
 });
 
+
 /**
  * Authenticated Routes
  */
@@ -52,5 +53,12 @@ Route::middleware('auth')->group(function () {
      */
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
-
 });
+
+
+/**
+ * Authenticated & Guest Routes
+ */
+Route::get('/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
+

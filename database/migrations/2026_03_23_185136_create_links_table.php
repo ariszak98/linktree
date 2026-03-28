@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('url');
             $table->string('description')->nullable();
             $table->boolean('is_active')->default(false);
+            $table->string('social')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

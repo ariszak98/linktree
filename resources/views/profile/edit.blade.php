@@ -8,7 +8,7 @@
                 <x-text.h1>Profile Settings</x-text.h1>
                 <x-text.p>Customize your public profile page.</x-text.p>
             </div>
-            <x-buttons.link-white href="#">View Public Profile</x-buttons.link-white>
+            <x-buttons.link-white href="{{ route('profile.show', auth()->user()->username) }}">View Public Profile</x-buttons.link-white>
         </div>
 
         <!-- PROFILE CARD -->
