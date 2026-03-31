@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateProfileRequest;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProfileController extends Controller
 {
@@ -58,20 +60,29 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request)
     {
         $attributes = $request->validate([
-            'description' => ['max:255'],
-            'avatar' => ['image', 'max:2048'],
-            'background_color' => ['string', 'max:15'],
+            'description' => ['nullable', 'max:255'],
+            'avatar' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'background_color' => ['nullable', 'string', 'max:15'],
         ]);
 
+        $profile = auth()->user()->profile;
+
         if ($request->hasFile('avatar')) {
+
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
+
+            // delete AFTER successful upload
+            if ($profile->avatar) {
+                Storage::disk('public')->delete($profile->avatar);
+            }
+
             $attributes['avatar'] = $avatarPath;
         }
 
-        $profile = auth()->user()->profile;
         $profile->update($attributes);
 
         return redirect()->route('home');
