@@ -9,3 +9,8 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+@source inline("text-green-800");
+@source inline("bg-gray-500 bg-blue-500 bg-purple-500 bg-yellow-500 bg-green-500 bg-red-500 bg-orange-500");
+@source inline("bg-gray-600 bg-blue-600 bg-purple-600 bg-yellow-600 bg-green-600 bg-red-600 bg-orange-600");
+

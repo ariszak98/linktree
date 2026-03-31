@@ -106,16 +106,16 @@
                             <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-blue-400 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
                         </label>
 
-                        <!-- PINK -->
+                        <!-- PURPLE -->
                         <label class="cursor-pointer">
                             <input
                                 type="radio"
                                 name="background_color"
-                                value="pink"
+                                value="purple"
                                 class="sr-only peer"
-                                {{ old('background_color', auth()->user()->profile?->background_color) === 'pink' ? 'checked' : '' }}
+                                {{ old('background_color', auth()->user()->profile?->background_color) === 'purple' ? 'checked' : '' }}
                             >
-                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-pink-300 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
+                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-purple-300 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
                         </label>
 
                         <!-- YELLOW -->

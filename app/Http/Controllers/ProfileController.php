@@ -41,12 +41,30 @@ class ProfileController extends Controller
      */
     public function show(User $user)
     {
-        $profile = $user->profile();
+        $profile = $user->profile;
         $links = $user->links()
             ->where('is_active', 1)
             ->latest()
             ->get();
-        return view('profile.show', ['user' => $user, 'profile' => $profile, 'links' => $links]);
+
+        if ($profile->background_color !== 'white' && $profile->background_color !== 'black') {
+            $nav_colors = ['linktree' => '', 'border' => ''];
+            $body_colors = ['main_paragraph' => '', 'link_card' => ''];
+            $footer_colors = ['border' => '', 'text' => ''];
+
+            $background_color = "bg-" . $profile->background_color . "-500";
+            $outer_color = "bg-" . $profile->background_color . "-600";
+
+        } else {
+
+            $nav_colors = ['linktree' => 'text-blue-600', 'border' => 'border-gray-200'];
+            $body_colors = ['main_paragraph' => 'text-gray-700', 'link_card' => 'flex items-center justify-center gap-2 w-full rounded-lg border-2 border-dashed border-black bg-white px-6 py-5 font-medium text-gray-800 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:text-blue-600'];
+            $footer_colors = ['border' => 'border-gray-200', 'text' => 'text-gray-500'];
+
+            $background_color = "bg-" . $profile->background_color;
+            $outer_color = "bg-" . $profile->background_color;
+        }
+        return view('profile.show', ['user' => $user, 'profile' => $profile, 'links' => $links, 'background_color' => $background_color, 'outer_color' => $outer_color]);
     }
 
     /**

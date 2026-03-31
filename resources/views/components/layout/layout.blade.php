@@ -1,6 +1,8 @@
 @props([
     'showHeader' => true,
     'showFooter' => true,
+    'background_color' => 'white',
+    'outer_color' => 'white',
 ])
 
 
@@ -14,7 +16,9 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-white text-gray-800 min-h-screen flex flex-col">
+
+{{--<body class="bg-white text-gray-800 min-h-screen flex flex-col">--}}
+<body class="{{ $background_color }} text-gray-800 min-h-screen flex flex-col">
 
 @if($showHeader)
     <!-- NAVBAR -->
@@ -102,7 +106,8 @@
         </div>
     </nav>
 @else
-    <nav class="border-b border-gray-200 bg-white">
+{{--    <nav class="border-b border-gray-200 bg-white">--}} <!-- border-gray-900 -->
+    <nav class="border-b border-gray-200 {{ $outer_color }}">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center h-12">
                 <a href="{{ route('home') }}" class="text-xl font-bold text-blue-600">
@@ -130,6 +135,7 @@
 
 <!-- FOOTER -->
 <footer class="border-t border-gray-200 bg-white">
+{{--    <footer class="border-t border-gray-900 {{ $outer_color }}">--}}
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-3">
 
         <p class="text-sm text-gray-500">
@@ -138,6 +144,8 @@
 
         <div class="flex gap-4 text-sm">
             <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+{{--        <a href="#" class="text-white hover:text-blue-600 transition">--}}
+
                 Privacy
             </a>
             <a href="#" class="text-gray-500 hover:text-blue-600 transition">
