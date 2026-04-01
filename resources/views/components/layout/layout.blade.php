@@ -3,6 +3,8 @@
     'showFooter' => true,
     'background_color' => 'white',
     'outer_color' => 'white',
+    'nav_colors',
+    'footer_colors' => ['border' => 'border-gray-200', 'text' => 'text-gray-500']
 ])
 
 
@@ -107,10 +109,10 @@
     </nav>
 @else
 {{--    <nav class="border-b border-gray-200 bg-white">--}} <!-- border-gray-900 -->
-    <nav class="border-b border-gray-200 {{ $outer_color }}">
+    <nav class="border-b {{ $nav_colors['border'] }} {{ $outer_color }}">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center h-12">
-                <a href="{{ route('home') }}" class="text-xl font-bold text-blue-600">
+                <a href="{{ route('home') }}" class="text-xl font-bold {{ $nav_colors['linktree']  }}">
                     Linktree
                 </a>
             </div>
@@ -134,24 +136,24 @@
 
 
 <!-- FOOTER -->
-<footer class="border-t border-gray-200 bg-white">
+<footer class="border-t {{ $footer_colors['border'] }} {{ $outer_color }}">
 {{--    <footer class="border-t border-gray-900 {{ $outer_color }}">--}}
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-3">
 
-        <p class="text-sm text-gray-500">
+        <p class="text-sm {{ $footer_colors['text'] }}">
             © {{ date('Y') }} Linktree Clone. All rights reserved.
         </p>
 
         <div class="flex gap-4 text-sm">
-            <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+            <a href="#" class="{{ $footer_colors['text'] }} hover:text-blue-600 transition">
 {{--        <a href="#" class="text-white hover:text-blue-600 transition">--}}
 
                 Privacy
             </a>
-            <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+            <a href="#" class="{{ $footer_colors['text'] }} hover:text-blue-600 transition">
                 Terms
             </a>
-            <a href="#" class="text-gray-500 hover:text-blue-600 transition">
+            <a href="#" class="{{ $footer_colors['text'] }} hover:text-blue-600 transition">
                 Contact
             </a>
         </div>

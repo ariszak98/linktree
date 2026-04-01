@@ -91,7 +91,7 @@
                                 class="sr-only peer"
                                 {{ old('background_color', auth()->user()->profile?->background_color) === 'gray' ? 'checked' : '' }}
                             >
-                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-gray-200 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
+                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-gray-500 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
                         </label>
 
                         <!-- BLUE -->
@@ -103,7 +103,7 @@
                                 class="sr-only peer"
                                 {{ old('background_color', auth()->user()->profile?->background_color) === 'blue' ? 'checked' : '' }}
                             >
-                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-blue-400 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
+                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-blue-500 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
                         </label>
 
                         <!-- PURPLE -->
@@ -115,7 +115,7 @@
                                 class="sr-only peer"
                                 {{ old('background_color', auth()->user()->profile?->background_color) === 'purple' ? 'checked' : '' }}
                             >
-                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-purple-300 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
+                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-purple-500 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
                         </label>
 
                         <!-- YELLOW -->
@@ -127,7 +127,7 @@
                                 class="sr-only peer"
                                 {{ old('background_color', auth()->user()->profile?->background_color) === 'yellow' ? 'checked' : '' }}
                             >
-                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-yellow-300 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
+                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-yellow-500 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
                         </label>
 
                         <!-- GREEN -->
@@ -139,7 +139,31 @@
                                 class="sr-only peer"
                                 {{ old('background_color', auth()->user()->profile?->background_color) === 'green' ? 'checked' : '' }}
                             >
-                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-green-300 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
+                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-green-500 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
+                        </label>
+
+                        <!-- RED -->
+                        <label class="cursor-pointer">
+                            <input
+                                type="radio"
+                                name="background_color"
+                                value="red"
+                                class="sr-only peer"
+                                {{ old('background_color', auth()->user()->profile?->background_color) === 'red' ? 'checked' : '' }}
+                            >
+                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-red-500 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
+                        </label>
+
+                        <!-- ORANGE -->
+                        <label class="cursor-pointer">
+                            <input
+                                type="radio"
+                                name="background_color"
+                                value="orange"
+                                class="sr-only peer"
+                                {{ old('background_color', auth()->user()->profile?->background_color) === 'orange' ? 'checked' : '' }}
+                            >
+                            <div class="w-16 h-16 rounded-xl border-2 border-gray-300 bg-orange-500 shadow-sm peer-checked:border-blue-600 peer-checked:ring-2 peer-checked:ring-blue-200 transition"></div>
                         </label>
 
                     </div>

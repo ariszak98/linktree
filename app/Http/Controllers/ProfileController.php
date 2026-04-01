@@ -48,9 +48,10 @@ class ProfileController extends Controller
             ->get();
 
         if ($profile->background_color !== 'white' && $profile->background_color !== 'black') {
-            $nav_colors = ['linktree' => '', 'border' => ''];
-            $body_colors = ['main_paragraph' => '', 'link_card' => ''];
-            $footer_colors = ['border' => '', 'text' => ''];
+
+            $nav_colors = ['linktree' => 'text-white', 'border' => 'border-gray-900'];
+            $body_colors = ['username' => 'text-white', 'main_paragraph' => 'text-white', 'link_card' => 'flex items-center justify-center gap-2 w-full rounded-xl border border-white/20 bg-white/90 backdrop-blur px-6 py-5 font-medium text-gray-900 shadow-md transition hover:-translate-y-1 hover:shadow-xl hover:bg-white'];
+            $footer_colors = ['border' => 'border-gray-900', 'text' => 'text-white'];
 
             $background_color = "bg-" . $profile->background_color . "-500";
             $outer_color = "bg-" . $profile->background_color . "-600";
@@ -58,13 +59,15 @@ class ProfileController extends Controller
         } else {
 
             $nav_colors = ['linktree' => 'text-blue-600', 'border' => 'border-gray-200'];
-            $body_colors = ['main_paragraph' => 'text-gray-700', 'link_card' => 'flex items-center justify-center gap-2 w-full rounded-lg border-2 border-dashed border-black bg-white px-6 py-5 font-medium text-gray-800 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:text-blue-600'];
+            $body_colors = ['username' => 'text-gray-900', 'main_paragraph' => 'text-gray-700', 'link_card' => 'flex items-center justify-center gap-2 w-full rounded-lg border-2 border-dashed border-black bg-white px-6 py-5 font-medium text-gray-800 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:text-blue-600'];
             $footer_colors = ['border' => 'border-gray-200', 'text' => 'text-gray-500'];
 
             $background_color = "bg-" . $profile->background_color;
             $outer_color = "bg-" . $profile->background_color;
         }
-        return view('profile.show', ['user' => $user, 'profile' => $profile, 'links' => $links, 'background_color' => $background_color, 'outer_color' => $outer_color]);
+        return view('profile.show', ['user' => $user, 'profile' => $profile, 'links' => $links,
+                                     'background_color' => $background_color, 'outer_color' => $outer_color,
+                                     'nav_colors' => $nav_colors, 'body_colors' => $body_colors, 'footer_colors' => $footer_colors]);
     }
 
     /**

@@ -1,4 +1,15 @@
-<x-layout :showHeader="false" :background_color="$background_color" :outer_color="$outer_color">
+@props([
+    'user',
+    'links',
+    'background_color',
+    'outer_color',
+    'nav_colors',
+    'body_colors',
+    'footer_colors'
+])
+
+
+<x-layout :showHeader="false" :background_color="$background_color" :outer_color="$outer_color" :nav_colors="$nav_colors" :footer_colors="$footer_colors">
     <div class="w-full max-w-2xl mx-auto py-10">
 
         <!-- PROFILE HEADER -->
@@ -17,13 +28,13 @@
                 @endif
             </div>
 
-            <h1 class="mt-5 text-2xl sm:text-3xl font-bold text-gray-900">
+            <h1 class="mt-5 text-2xl sm:text-3xl font-bold {{ $body_colors['username'] }}">
 {{--            <h1 class="mt-5 text-2xl sm:text-3xl font-bold text-white">--}}
                 {{ '@' . $user->username }}
             </h1>
 
             @if($user->profile?->description)
-                <p class="mt-3 text-gray-700 max-w-md leading-relaxed">
+                <p class="mt-3 {{ $body_colors['main_paragraph'] }} max-w-md leading-relaxed">
 {{--                <p class="mt-3 text-white max-w-md leading-relaxed">--}}
                     {{ $user->profile->description }}
                 </p>
@@ -37,13 +48,17 @@
                     href="{{ $link->url }}"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="flex items-center justify-center gap-2 w-full rounded-lg border-2 border-dashed border-black bg-white px-6 py-5 font-medium text-gray-800 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:text-blue-600">
+                    class="{{ $body_colors['link_card'] }}">
+
+{{--                    class="flex items-center justify-center gap-2 w-full rounded-lg border-2 border-dashed border-black bg-white px-6 py-5 font-medium text-gray-800 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:text-blue-600">--}}
 {{--                    class="flex items-center justify-center gap-2 w-full rounded-xl--}}
 {{--border border-white/20--}}
 {{--bg-white/90 backdrop-blur--}}
 {{--px-6 py-5 font-medium text-gray-900--}}
 {{--shadow-md transition--}}
 {{--hover:-translate-y-1 hover:shadow-xl hover:bg-white">--}}
+
+
                     @if($link->social)
                         <x-dynamic-component :component="'icons.' . $link->social . '-svg'" />
                     @endif
