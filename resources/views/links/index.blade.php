@@ -33,26 +33,77 @@
 
 
         <!-- LINKS SECTION -->
+{{--        <section class="space-y-4">--}}
+
+{{--            <x-buttons.link-wide href="{{ route('profile.edit') }}">Customise LinkTree</x-buttons.link-wide>--}}
+
+{{--            @forelse($links as $link)--}}
+
+{{--                <x-layout.style.card href="{{ route('links.edit', $link) }}">--}}
+
+{{--                        @if($link->is_active)--}}
+{{--                            <x-ui.pill-green>Active</x-ui.pill-green>--}}
+{{--                        @else--}}
+{{--                            <x-ui.pill-red>Inactive</x-ui.pill-red>--}}
+{{--                        @endif--}}
+
+{{--                        <x-text.card>{{ $link->description ?: $link->url }}</x-text.card>--}}
+
+{{--                        <div class="flex flex-col items-center gap-1 ml-4">--}}
+{{--                            <x-buttons.arrow-up/>--}}
+{{--                            <x-buttons.arrow-down/>--}}
+{{--                        </div>--}}
+
+{{--                </x-layout.style.card>--}}
+
+{{--            @empty--}}
+{{--                <x-layout.style.empty-div>No links found yet.</x-layout.style.empty-div>--}}
+{{--            @endforelse--}}
+
+{{--        </section>--}}
+
         <section class="space-y-4">
 
-            <x-buttons.link-wide href="{{ route('profile.edit') }}">Customise LinkTree</x-buttons.link-wide>
+            <x-buttons.link-wide href="{{ route('profile.edit') }}">
+                Customise LinkTree
+            </x-buttons.link-wide>
 
             @forelse($links as $link)
 
-                <x-layout.style.card href="{{ route('links.edit', $link) }}">
+                <x-layout.style.card>
 
+                    <div class="flex items-center gap-4 flex-1">
                         @if($link->is_active)
                             <x-ui.pill-green>Active</x-ui.pill-green>
                         @else
                             <x-ui.pill-red>Inactive</x-ui.pill-red>
                         @endif
 
-                        <x-text.card>{{ $link->description ?: $link->url }}</x-text.card>
+                        <a href="{{ route('links.edit', $link) }}" class="flex-1 block">
+                            <x-text.card>{{ $link->description ?: $link->url }}</x-text.card>
+                        </a>
+                    </div>
 
-                        <div class="flex flex-col items-center gap-1 ml-4">
-                            <x-buttons.arrow-up/>
-                            <x-buttons.arrow-down/>
-                        </div>
+                    <div class="flex flex-col items-center gap-1 ml-4">
+
+                        <form action="{{ route('links.reorder', $link) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="direction" value="up">
+                            <button type="submit" class="p-1.5 rounded-md hover:bg-blue-50 transition group">
+                                <x-buttons.arrow-up />
+                            </button>
+
+                        </form>
+
+                        <form action="{{ route('links.reorder', $link) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="direction" value="down">
+                            <button type="submit" class="p-1.5 rounded-md hover:bg-blue-50 transition group">
+                                <x-buttons.arrow-down />
+                            </button>
+                        </form>
+
+                    </div>
 
                 </x-layout.style.card>
 

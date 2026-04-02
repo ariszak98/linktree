@@ -6,10 +6,6 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 /**
  * Guest Routes
@@ -41,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/links/{link}', [LinkController::class, 'update'])->name('links.update');
     Route::delete('/links/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
     Route::post('/links', [LinkController::class, 'store'])->name('links.store');
-
+    Route::post('/links/{link}/reorder', [LinkController::class, 'reorder'])->name('links.reorder');
     /**
      * Profile Related Routes
      */

@@ -12,29 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProfileRequest $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -42,9 +19,10 @@ class ProfileController extends Controller
     public function show(User $user)
     {
         $profile = $user->profile;
-        $links = $user->links()
-            ->where('is_active', 1)
-            ->latest()
+        $links = auth()->user()
+            ->links()
+            ->where('is_active', true)
+            ->orderBy('order')
             ->get();
 
         if ($profile->background_color !== 'white' && $profile->background_color !== 'black') {

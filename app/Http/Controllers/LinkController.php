@@ -15,9 +15,10 @@ class LinkController extends Controller
      */
     public function index()
     {
-        // get all links of auth user
-
-        $links = auth()->user()->links()->latest()->get();
+        $links = auth()->user()
+            ->links()
+            ->orderBy('order', 'asc')
+            ->get();
         $activeLinksCount = auth()->user()->activeLinksCount();
         $inactiveLinksCount = auth()->user()->inactiveLinksCount();
         return view('links.index', ['links' => $links, 'activeLinksCount' => $activeLinksCount, 'inactiveLinksCount' => $inactiveLinksCount]);
@@ -66,22 +67,26 @@ class LinkController extends Controller
             $found = 'x';
         }
 
+        // check if this is the first link of this user
+        if (auth()->user()->links()->count() == 0) {
+            $order = 1;
+        } else {
+            // find the link with the higher number in the 'order' column
+            $lastLink = auth()->user()->links()->orderBy('order', 'desc')->first();
+            $order = $lastLink->order + 1;
+        }
+
         Link::create([
             'url' => $attributes['url'],
             'description' => $attributes['description'] ?? '',
             'user_id' => auth()->id(),
             'social' => $found,
+            'order' => $order
         ]);
 
-        return redirect()->route('home');
-    }
+//        (auth()->user()->links()->max('order') + 1),
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Link $link)
-    {
-        //
+        return redirect()->route('home');
     }
 
     /**
@@ -97,7 +102,6 @@ class LinkController extends Controller
      */
     public function update(HttpRequest $request, Link $link)
     {
-
         $url = $request->url;
 
         if ($url && !preg_match('~^https?://~i', $url)) {
@@ -129,7 +133,66 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        $link->delete();
+        if( $link->delete() ){
+            $this->rearrange();
+        }
         return redirect()->route('home');
+    }
+
+    public function reorder(HttpRequest $request, Link $link)
+    {
+        $this->rearrange();
+
+        $direction = $request->input('direction');
+
+        abort_if($link->user_id !== auth()->id(), 403);
+
+        $targetOrder = match ($direction) {
+            'up' => $link->order - 1,
+            'down' => $link->order + 1,
+            default => null,
+        };
+
+        if ($targetOrder === null) {
+            return redirect()->route('home');
+        }
+
+        $swapWith = auth()->user()
+            ->links()
+            ->where('order', $targetOrder)
+            ->first();
+
+        if (! $swapWith) {
+            return redirect()->route('home');
+        }
+
+        $currentOrder = $link->order;
+
+        $link->order = $swapWith->order;
+        $swapWith->order = $currentOrder;
+
+        $link->save();
+        $swapWith->save();
+
+        $this->rearrange();
+
+        return redirect()->route('home');
+    }
+
+    private function rearrange(): void
+    {
+        $links = auth()->user()
+            ->links()
+            ->orderBy('order')
+            ->get();
+
+        foreach ($links as $index => $link) {
+            $newOrder = $index + 1;
+
+            if ($link->order != $newOrder) {
+                $link->order = $newOrder;
+                $link->save();
+            }
+        }
     }
 }
